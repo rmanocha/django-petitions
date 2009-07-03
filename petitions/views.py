@@ -19,11 +19,6 @@ def create_new_petition(request, form_class = CreatePetitionForm,
     request -- the Request object
     form_class -- The Form Class to use for creating a new Petition
     template_name -- A custom template to use to display the petition creation form
-    send_mail_func -- A function which can send out mails to people the user wants to
-                      share this petition with. The function needs to accept 2 args:
-                      -> to_list - a list of email addresses this petition needs to be 
-                                   mailed to.
-                      -> petition - the petition that needs to be shared
     """
     if request.POST:
         petition_form = form_class(request.POST)
