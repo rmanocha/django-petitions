@@ -1,0 +1,7 @@
+info.db
+*.pyc
+*.swp
+.project
+.pydevproject
+.DS_Store
+scrape.kpf
