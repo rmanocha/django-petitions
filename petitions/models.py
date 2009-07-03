@@ -52,19 +52,18 @@ def petition_post_save_callback(sender, **kwargs):
     into the slug and save the petition, else we just use the slug create from
     the title as the object's slug_name
     """
-    if sender == Petition:
-        petition = kwargs.pop('instance')
-        created = kwargs.pop('created')
+    petition = kwargs.pop('instance')
+    created = kwargs.pop('created')
 
-        if created:
-            if not petition.slug_name:
-                slug = slugify(petition.title)
-                if sender.objects.filter(slug_name = slug).count() or slug in ('add', 'sign-petition', 'petition-signators'):
-                    petition.slug_name = '-'.join([slug, unicode(petition.id)])
-                    petition.save()
-                else:
-                    petition.slug_name = slug
-                    petition.save()
+    if created:
+        if not petition.slug_name:
+            slug = slugify(petition.title)
+            if sender.objects.filter(slug_name = slug).count() or slug in ('add', 'sign-petition', 'petition-signators'):
+                petition.slug_name = '-'.join([slug, unicode(petition.id)])
+                petition.save()
+            else:
+                petition.slug_name = slug
+                petition.save()
     
-models.signals.post_save.connect(petition_post_save_callback)
+models.signals.post_save.connect(petition_post_save_callback, sender = Petition)
 
