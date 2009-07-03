@@ -56,7 +56,7 @@ def petition_post_save_callback(sender, **kwargs):
         if created:
             if not petition.slug_name:
                 slug = slugify(petition.title)
-                if sender.objects.filter(slug_name = slug).count():
+                if sender.objects.filter(slug_name = slug).count() or slug in ('add', 'sign-petition', 'petition-signators'):
                     petition.slug_name = '-'.join([slug, unicode(petition.id)])
                     petition.save()
                 else:
