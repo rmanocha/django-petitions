@@ -1,6 +1,4 @@
 from django import forms
-from django.contrib.contenttypes.models import ContentType
-from django.forms.fields import email_re
 
 from petitions.models import Petition
 
