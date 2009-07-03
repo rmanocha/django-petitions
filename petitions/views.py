@@ -4,31 +4,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
 
 from petitions.models import Petition, PetitionSignature
 from petitions.forms import CreatePetitionForm
+from petitions.signals import petition_saved
 
-def share_petition(to_list, petition):
-    """
-    This is a replaceable function to allow users to share a new petition
-    with their friends.
-    This function sends out the mails as part of the request/response process
-    which can significantly slow down said process. You can define your own function
-    and have it use a queue to send out said mails.
-    
-    to_list -- the list of people this petition should be sent to
-    petition -- the newly create petition
-    """
-    message = render_to_string('petitions/share_email.txt', {'petition' : petition})
-    subject = render_to_string('petitions/share_email_subject.txt', {'petition_title' : petition.title})
-    send_mail(subject, message, petition.creator.email, to_list, fail_silently = False)
-    
 @login_required
 def create_new_petition(request, form_class = CreatePetitionForm,
-            template_name = 'petitions/new_petition.html',
-            send_mail_func = share_petition):
+            template_name = 'petitions/new_petition.html'):
     """
     This view will allow users to create a new petition.
     A User needs to be logged in to create a new petition.
@@ -49,8 +32,7 @@ def create_new_petition(request, form_class = CreatePetitionForm,
             petition.creator = request.user
             petition.save()
 
-            if petition_form.cleaned_data['email_list']:
-                send_mail_func(petition_form.cleaned_data['email_list'], petition)
+            petition_saved.send(sender = Petition, petition_form = petition_form, petition = petition)
 
             return HttpResponseRedirect(reverse('petition-details', args = [petition.slug_name]))
     else:
