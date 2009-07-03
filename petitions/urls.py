@@ -1,8 +1,8 @@
 from django.conf.urls.defaults import *
 
-from govcheck.petitions.models import Petition
+from petitions.models import Petition
 
-urlpatterns = patterns('govcheck.petitions.views',
+urlpatterns = patterns('petitions.views',
     url(r'^add/$',                              'create_new_petition', name = 'create-new-petition'),
     url(r'^sign-petition/$',                    'sign_petition', name = 'sign-petition'),
     url(r'^petition-signators/$',               'get_petition_signators', name = 'petition-signators'),
