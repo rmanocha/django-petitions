@@ -18,6 +18,9 @@ class Petition(models.Model):
     def __unicode__(self):
         return '%s (%s)' % (self.title, self.creator)
 
+    class Meta:
+        ordering = ['datetime_created']
+
 class PetitionRelatedObject(models.Model):
     petition = models.ForeignKey(Petition, verbose_name='The associated petition')
     content_type = models.ForeignKey(ContentType)
