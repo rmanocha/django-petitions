@@ -24,6 +24,7 @@ your settings.py file. It should look something like::
 
 You will also need to add the petitions urls to your site's URLConf. You can 
 do this by adding the following line to your URLConf::
+
         (r'petitions/', include('petitions.urls')),
 
 That's it. You can now create petitions by going to ``/petitions/add/`` and 
