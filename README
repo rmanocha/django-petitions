@@ -1,0 +1,10 @@
+How to use django-petitions
+------------------------------
+
+``django-petitions`` allows for basic petitions functionality in your django project.
+
+### Install
+For now, to install django-petitions, check it out from github using:
+>git clone git://github.com/rmanocha/django-petitions.git
+and then copy either copy the petitions folder to your python distribution's
+``site-packages`` folder or create a symbolic link.
