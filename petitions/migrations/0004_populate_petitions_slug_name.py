@@ -9,9 +9,13 @@ class Migration:
     def forwards(self, orm):
         "Write your forwards migration here"
         for petition in orm.Petition.objects.all():
-            petition.slug_name = defaultfilters.slugify(petition.title)
-            petition.save()
-    
+            slug = defaultfilters.slugify(petition.title)
+            if orm.Petition.objects.filter(slug_name = slug).count() or slug in ('add', 'sign-petition', 'petition-signators'):
+                petition.slug_name = '-'.join([slug, unicode(petition.id)])
+                petition.save()
+            else:
+                petition.slug_name = slug
+                petition.save()
     
     def backwards(self, orm):
         "Write your backwards migration here"
