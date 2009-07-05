@@ -2,6 +2,7 @@ How to use django-petitions
 ------------------------------
 
 ``django-petitions`` allows for basic petitions functionality in your django project.
+It is in use on GovCheck.net (http://govcheck.net) at http://govcheck.net/petitions/.
 
 ### Install
 
@@ -21,6 +22,11 @@ your settings.py file. It should look something like::
             # ...
             'petitions',
         )
+
+You will now need to create the required tables. To do this, run the following
+command from your project's root folder::
+
+        python manage.py syncdb
 
 You will also need to add the petitions urls to your site's URLConf. You can 
 do this by adding the following line to your URLConf::
@@ -69,3 +75,11 @@ There are 3 views defined in ``django-petitions``.
     In addition is also needs a ``data`` argument which should be either of 
     ``full`` or ``count``. See the docs in the function signature to understand
     what each does.
+
+Notes on ``migrations``
+-----------------------
+
+Any changes in the models are done using south (http://south.aeracode.org/). If you 
+have already installed the app and see some additional features that will need changing
+the models, you will need to run the relevant migrations. Read south's website to learn
+how to do that.
