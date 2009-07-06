@@ -3,6 +3,8 @@ How to use django-petitions
 
 ``django-petitions`` allows for basic petitions functionality in your django project.
 It is in use on GovCheck.net (http://govcheck.net) at http://govcheck.net/petitions/.
+``django-petitions`` is released under the BSD license. See License.txt for more
+details.
 
 ### Install
 
