@@ -16,7 +16,7 @@ class Petition(models.Model):
         return reverse('petition-details', args = [self.slug_name])
 
     def __unicode__(self):
-        return '%s (%s)' % (self.title, self.creator)
+        return '%s' % self.title
 
     class Meta:
         ordering = ['datetime_created']
