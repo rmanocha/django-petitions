@@ -5,3 +5,6 @@ info.db
 .pydevproject
 .DS_Store
 scrape.kpf
+dist/
+build/
+django_petitions.egg-info
